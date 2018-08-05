@@ -374,6 +374,8 @@ public class BaseVisitor {
 
                 LOG.debug("PMD found " + collectingReport.size() + " violations for file " + file.getName());
 
+                // @Todo: Hook for displaying popup
+                
                 if (collectingReport.hasConfigErrors()) {
                     StringBuilder message = new StringBuilder("There were configuration errors!\n");
                     Iterator<ConfigurationError> errors = collectingReport.configErrors();
