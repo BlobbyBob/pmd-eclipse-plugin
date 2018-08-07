@@ -14,13 +14,13 @@
 
   <build>
     <plugins>
-      <plugin>
+      <!--<plugin>
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>tycho-surefire-plugin</artifactId>
         <configuration>
             <useUIHarness>true</useUIHarness>
         </configuration>
-      </plugin>
+      </plugin>-->
       <plugin>
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>target-platform-configuration</artifactId>
