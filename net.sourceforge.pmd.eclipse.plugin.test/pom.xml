@@ -20,7 +20,7 @@
         <configuration>
             <useUIHarness>true</useUIHarness>
         </configuration>
-      </plugin>-->
+      </plugin>
       <plugin>
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>target-platform-configuration</artifactId>
@@ -63,7 +63,7 @@
                     <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
                 </sourceDirectories>
             </configuration>
-        </plugin>
+        </plugin>-->
     </plugins>
   </build>
 
