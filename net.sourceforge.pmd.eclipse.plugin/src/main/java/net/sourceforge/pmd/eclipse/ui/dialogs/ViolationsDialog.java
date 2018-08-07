@@ -2,8 +2,8 @@ package net.sourceforge.pmd.eclipse.ui.dialogs;
 
 import net.sourceforge.pmd.Report;
 import net.sourceforge.pmd.RuleViolation;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IconAndMessageDialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.graphics.Image;
@@ -22,9 +22,11 @@ public class ViolationsDialog extends IconAndMessageDialog {
     public ViolationsDialog(Shell parentShell) {
         super(parentShell);
         int count = 0;
-        for (RuleViolation violation : report)
-            if (!violation.isSuppressed())
+        for (RuleViolation violation : report) {
+            if (!violation.isSuppressed()) {
                 count++;
+            }
+        }
         message = count + " violations found.";
     }
 
@@ -52,7 +54,9 @@ public class ViolationsDialog extends IconAndMessageDialog {
         detailsArea.setVisible(false);
 
         for (RuleViolation violation : report) {
-            if (violation.isSuppressed()) continue;
+            if (violation.isSuppressed()) {
+                continue;
+            }
             Label rulename = new Label(detailsArea, SWT.NONE);
             rulename.setText(violation.getRule().getName());
             Label description = new Label(detailsArea, SWT.NONE);

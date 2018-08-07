@@ -23,50 +23,15 @@
 
 package net.sourceforge.pmd.eclipse.runtime.cmd;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
-
-import net.sourceforge.pmd.eclipse.ui.dialogs.ViolationsDialog;
-import org.apache.log4j.Logger;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IWorkingSet;
-import org.eclipse.ui.ResourceWorkingSetFilter;
-
-import net.sourceforge.pmd.PMD;
-import net.sourceforge.pmd.PMDConfiguration;
-import net.sourceforge.pmd.PMDException;
-import net.sourceforge.pmd.Report;
+import name.herlin.command.Timer;
+import net.sourceforge.pmd.*;
 import net.sourceforge.pmd.Report.ConfigurationError;
 import net.sourceforge.pmd.Report.ProcessingError;
-import net.sourceforge.pmd.Rule;
-import net.sourceforge.pmd.RuleContext;
-import net.sourceforge.pmd.RuleSet;
-import net.sourceforge.pmd.RuleSetFactory;
-import net.sourceforge.pmd.RuleSetNotFoundException;
-import net.sourceforge.pmd.RuleSets;
-import net.sourceforge.pmd.RuleViolation;
 import net.sourceforge.pmd.eclipse.plugin.PMDPlugin;
 import net.sourceforge.pmd.eclipse.runtime.PMDRuntimeConstants;
 import net.sourceforge.pmd.eclipse.runtime.properties.IProjectProperties;
 import net.sourceforge.pmd.eclipse.runtime.properties.PropertiesException;
+import net.sourceforge.pmd.eclipse.ui.dialogs.ViolationsDialog;
 import net.sourceforge.pmd.eclipse.util.IOUtil;
 import net.sourceforge.pmd.eclipse.util.PriorityUtil;
 import net.sourceforge.pmd.lang.LanguageRegistry;
@@ -80,8 +45,18 @@ import net.sourceforge.pmd.util.NumericConstants;
 import net.sourceforge.pmd.util.StringUtil;
 import net.sourceforge.pmd.util.datasource.DataSource;
 import net.sourceforge.pmd.util.datasource.ReaderDataSource;
+import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IWorkingSet;
+import org.eclipse.ui.ResourceWorkingSetFilter;
 
-import name.herlin.command.Timer;
+import java.io.*;
+import java.util.*;
 
 /**
  * Factor some useful features for visitors
