@@ -49,7 +49,7 @@
                 </execution>
             </executions>
         </plugin>
-        <plugin>
+        <!--<plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-checkstyle-plugin</artifactId>
             <version>3.0.0</version>
@@ -76,7 +76,7 @@
                     <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
                 </sourceDirectories>
             </configuration>
-        </plugin>
+        </plugin>-->
     </plugins>
     <pluginManagement>
       <plugins>
