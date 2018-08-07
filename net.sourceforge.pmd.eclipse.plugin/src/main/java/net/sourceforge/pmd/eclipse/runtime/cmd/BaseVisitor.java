@@ -38,12 +38,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import net.sourceforge.pmd.eclipse.ui.dialogs.ViolationsDialog;
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.ResourceWorkingSetFilter;
 
@@ -374,8 +377,10 @@ public class BaseVisitor {
 
                 LOG.debug("PMD found " + collectingReport.size() + " violations for file " + file.getName());
 
-                // @Todo: Hook for displaying popup
-                
+                // Hook for displaying popup
+                ViolationsDialog violationsDialog = new ViolationsDialog(Display.getCurrent().getActiveShell());
+                violationsDialog.open();
+
                 if (collectingReport.hasConfigErrors()) {
                     StringBuilder message = new StringBuilder("There were configuration errors!\n");
                     Iterator<ConfigurationError> errors = collectingReport.configErrors();
