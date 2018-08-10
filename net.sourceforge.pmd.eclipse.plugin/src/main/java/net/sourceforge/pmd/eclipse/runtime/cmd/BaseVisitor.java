@@ -24,6 +24,7 @@
 package net.sourceforge.pmd.eclipse.runtime.cmd;
 
 import name.herlin.command.Timer;
+import net.sf.saxon.trans.Err;
 import net.sourceforge.pmd.*;
 import net.sourceforge.pmd.Report.ConfigurationError;
 import net.sourceforge.pmd.Report.ProcessingError;
@@ -48,10 +49,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.*;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkingSet;
@@ -359,32 +357,18 @@ public class BaseVisitor {
                 display.asyncExec(new Runnable() {
                     public void run() {
                         int count = 0;
+                        StringBuilder sb = new StringBuilder();
+                        MultiStatus status = new MultiStatus(PMDPlugin.PLUGIN_ID, 1, "", null);
+
                         for (RuleViolation violation : collectingReport) {
                             if (!violation.isSuppressed()) {
                                 count++;
+                                sb.append(violation.getFilename()).append(":").append(violation.getBeginLine()).append(" ").append(violation.getRule().getName());
+                                status.add(new Status(IStatus.INFO, PMDPlugin.PLUGIN_ID, 1, sb.toString(), null));
                             }
                         }
 
-                        class MessageException extends Throwable {
-                            private Report report;
-                            MessageException(Report collectingReport) {
-                                report = collectingReport;
-                            }
-                            @Override
-                            public String getMessage() {
-                                StringBuilder sb = new StringBuilder();
-                                for (RuleViolation violation : report) {
-                                    if (!violation.isSuppressed()) {
-                                        sb.append(violation.getFilename()).append(":").append(violation.getBeginLine()).append(" ").append(violation.getRule().getName());
-                                    }
-                                }
-                                return sb.toString();
-                            }
-                        }
-
-                        Status status = new Status(IStatus.INFO, PMDPlugin.PLUGIN_ID, "Your code has " + count + " issues.", new MessageException(collectingReport));
-                        ErrorDialog errorDialog = new ErrorDialog(display.getActiveShell(), "PMD Warnings", "Your code has " + count + " issues. See details for more information.", status, IStatus.ERROR);
-                        errorDialog.open();
+                        ErrorDialog.openError(display.getActiveShell(), "PMD Warnings", "You have " + count + " warnings.", status);
                     }
                 });
 
