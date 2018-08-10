@@ -2,16 +2,14 @@ package net.sourceforge.pmd.eclipse.ui.dialogs;
 
 import net.sourceforge.pmd.Report;
 import net.sourceforge.pmd.RuleViolation;
-import org.eclipse.jface.dialogs.IconAndMessageDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.swt.SWT;
+import org.eclipse.jface.dialogs.IconAndMessageDialog;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 public class ViolationsDialog extends IconAndMessageDialog {
@@ -45,23 +43,23 @@ public class ViolationsDialog extends IconAndMessageDialog {
 
         createMessageArea(container);
 
-        detailsArea = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
-        GridLayout detailsLayout = new GridLayout(2, false);
-        detailsLayout.marginBottom = 10;
-        detailsLayout.marginRight = 5;
-        detailsLayout.marginLeft = 5;
-        detailsArea.setLayout(detailsLayout);
-        detailsArea.setVisible(false);
+//        detailsArea = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
+//        GridLayout detailsLayout = new GridLayout(2, false);
+//        detailsLayout.marginBottom = 10;
+//        detailsLayout.marginRight = 5;
+//        detailsLayout.marginLeft = 5;
+//        detailsArea.setLayout(detailsLayout);
+//        detailsArea.setVisible(false);
 
-        for (RuleViolation violation : report) {
-            if (violation.isSuppressed()) {
-                continue;
-            }
-            Label rulename = new Label(detailsArea, SWT.NONE);
-            rulename.setText(violation.getRule().getName());
-            Label description = new Label(detailsArea, SWT.NONE);
-            description.setText(violation.getDescription());
-        }
+//        for (RuleViolation violation : report) {
+//            if (violation.isSuppressed()) {
+//                continue;
+//            }
+//            Label rulename = new Label(detailsArea, SWT.NONE);
+//            rulename.setText(violation.getRule().getName());
+//            Label description = new Label(detailsArea, SWT.NONE);
+//            description.setText(violation.getDescription());
+//        }
 
         return container;
     }
@@ -85,7 +83,7 @@ public class ViolationsDialog extends IconAndMessageDialog {
     @Override
     protected void buttonPressed(int buttonId) {
         if (buttonId == IDialogConstants.DETAILS_ID) {
-            detailsPressed();
+//            detailsPressed();
         } else {
             super.buttonPressed(buttonId);
         }
