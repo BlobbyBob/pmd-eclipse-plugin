@@ -355,9 +355,11 @@ public class BaseVisitor {
                 LOG.debug("PMD found " + collectingReport.size() + " violations for file " + file.getName());
 
                 // Hook for displaying popup
+                if (Display.getCurrent().getActiveShell() == null)
+                    LOG.error("Display.getCurrent().getActiveShell() == null");
                 MessageDialog.open(MessageDialog.QUESTION_WITH_CANCEL, Display.getCurrent().getActiveShell(), "Title", "Message2", SWT.None);
-                ViolationsDialog violationsDialog = new ViolationsDialog(Display.getCurrent().getActiveShell());
-                violationsDialog.open();
+//                ViolationsDialog violationsDialog = new ViolationsDialog(Display.getCurrent().getActiveShell());
+//                violationsDialog.open();
 
                 if (collectingReport.hasConfigErrors()) {
                     StringBuilder message = new StringBuilder("There were configuration errors!\n");
