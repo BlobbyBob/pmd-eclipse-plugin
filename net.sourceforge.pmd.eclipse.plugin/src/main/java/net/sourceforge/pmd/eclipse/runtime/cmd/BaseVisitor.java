@@ -357,14 +357,14 @@ public class BaseVisitor {
                 display.asyncExec(new Runnable() {
                     public void run() {
                         int count = 0;
-                        StringBuilder sb = new StringBuilder();
                         MultiStatus status = new MultiStatus(PMDPlugin.PLUGIN_ID, 1, "", null);
 
                         for (RuleViolation violation : collectingReport) {
                             if (!violation.isSuppressed()) {
+                                StringBuilder sb = new StringBuilder();
                                 count++;
                                 sb.append(violation.getFilename()).append(":").append(violation.getBeginLine()).append(" ").append(violation.getRule().getName());
-                                status.add(new Status(IStatus.INFO, PMDPlugin.PLUGIN_ID, 1, sb.toString(), null));
+                                status.add(new Status(IStatus.WARNING, PMDPlugin.PLUGIN_ID, 1, sb.toString(), null));
                             }
                         }
 
