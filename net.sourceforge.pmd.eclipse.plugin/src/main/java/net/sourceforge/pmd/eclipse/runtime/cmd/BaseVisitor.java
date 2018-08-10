@@ -357,7 +357,7 @@ public class BaseVisitor {
                 display.asyncExec(new Runnable() {
                     public void run() {
                         int count = 0;
-                        MultiStatus status = new MultiStatus(PMDPlugin.PLUGIN_ID, 1, "", null);
+                        MultiStatus status = new MultiStatus(PMDPlugin.PLUGIN_ID, 1, "You have " + count + " warnings.", null);
 
                         for (RuleViolation violation : collectingReport) {
                             if (!violation.isSuppressed()) {
@@ -368,7 +368,7 @@ public class BaseVisitor {
                             }
                         }
                         if (count > 0)
-                            ErrorDialog.openError(display.getActiveShell(), "PMD Warnings", "You have " + count + " warnings.", status);
+                            ErrorDialog.openError(display.getActiveShell(), "PMD Warnings", null, status);
                     }
                 });
 
