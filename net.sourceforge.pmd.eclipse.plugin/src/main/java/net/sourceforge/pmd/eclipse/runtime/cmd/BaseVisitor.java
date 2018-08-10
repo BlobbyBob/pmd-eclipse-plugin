@@ -367,8 +367,8 @@ public class BaseVisitor {
                                 status.add(new Status(IStatus.WARNING, PMDPlugin.PLUGIN_ID, 1, sb.toString(), null));
                             }
                         }
-
-                        ErrorDialog.openError(display.getActiveShell(), "PMD Warnings", "You have " + count + " warnings.", status);
+                        if (count > 0)
+                            ErrorDialog.openError(display.getActiveShell(), "PMD Warnings", "You have " + count + " warnings.", status);
                     }
                 });
 
