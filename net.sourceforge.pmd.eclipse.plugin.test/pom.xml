@@ -14,7 +14,7 @@
 
   <build>
     <plugins>
-      <!--<plugin>
+      <plugin>
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>tycho-surefire-plugin</artifactId>
         <configuration>
@@ -63,7 +63,7 @@
                     <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
                 </sourceDirectories>
             </configuration>
-        </plugin>-->
+        </plugin>
     </plugins>
   </build>
 
