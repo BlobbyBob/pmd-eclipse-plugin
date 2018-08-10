@@ -31,7 +31,6 @@ import net.sourceforge.pmd.eclipse.plugin.PMDPlugin;
 import net.sourceforge.pmd.eclipse.runtime.PMDRuntimeConstants;
 import net.sourceforge.pmd.eclipse.runtime.properties.IProjectProperties;
 import net.sourceforge.pmd.eclipse.runtime.properties.PropertiesException;
-import net.sourceforge.pmd.eclipse.ui.dialogs.DetailsDialog;
 import net.sourceforge.pmd.eclipse.util.IOUtil;
 import net.sourceforge.pmd.eclipse.util.PriorityUtil;
 import net.sourceforge.pmd.lang.LanguageRegistry;
