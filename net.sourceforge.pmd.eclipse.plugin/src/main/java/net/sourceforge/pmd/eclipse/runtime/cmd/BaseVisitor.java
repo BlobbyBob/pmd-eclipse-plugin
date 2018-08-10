@@ -31,7 +31,7 @@ import net.sourceforge.pmd.eclipse.plugin.PMDPlugin;
 import net.sourceforge.pmd.eclipse.runtime.PMDRuntimeConstants;
 import net.sourceforge.pmd.eclipse.runtime.properties.IProjectProperties;
 import net.sourceforge.pmd.eclipse.runtime.properties.PropertiesException;
-import net.sourceforge.pmd.eclipse.ui.dialogs.ViolationsDialog;
+import net.sourceforge.pmd.eclipse.ui.dialogs.DetailsDialog;
 import net.sourceforge.pmd.eclipse.util.IOUtil;
 import net.sourceforge.pmd.eclipse.util.PriorityUtil;
 import net.sourceforge.pmd.lang.LanguageRegistry;
@@ -51,8 +51,9 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.SWT;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.ResourceWorkingSetFilter;
@@ -358,8 +359,27 @@ public class BaseVisitor {
                 final Display display = Display.getDefault();
                 display.asyncExec(new Runnable() {
                     public void run() {
-                        ViolationsDialog violationsDialog = new ViolationsDialog(display.getActiveShell());
-                        violationsDialog.open();
+                        int count = 0;
+                        for (RuleViolation violation : collectingReport) {
+                            if (!violation.isSuppressed()) {
+                                count++;
+                            }
+                        }
+
+                        Status status = new Status(IStatus.INFO, PMDPlugin.PLUGIN_ID, "Your code has " + count + " issues.", new Throwable(){
+                            @Override
+                            public String getMessage() {
+                                StringBuilder sb = new StringBuilder();
+                                for (RuleViolation violation : collectingReport) {
+                                    if (!violation.isSuppressed()) {
+                                        sb.append(violation.getFilename()).append(":").append(violation.getBeginLine()).append(" ").append(violation.getRule().getName());
+                                    }
+                                }
+                                return sb.toString();
+                            }
+                        });
+                        ErrorDialog errorDialog = new ErrorDialog(display.getActiveShell(), "PMD Warnings", "Your code has " + count + " issues. See details for more information.", status, IStatus.ERROR);
+                        errorDialog.open();
                     }
                 });
 
