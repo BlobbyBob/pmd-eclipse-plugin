@@ -355,7 +355,13 @@ public class BaseVisitor {
                 LOG.debug("PMD found " + collectingReport.size() + " violations for file " + file.getName());
 
                 // Hook for displaying popup
-                MessageDialog.open(MessageDialog.QUESTION_WITH_CANCEL, Display.getDefault().getActiveShell(), "Title", "Message2", SWT.None);
+                final Display display = Display.getDefault();
+                display.asyncExec(new Runnable() {
+                    public void run() {
+                        MessageDialog.open(MessageDialog.QUESTION_WITH_CANCEL, display.getActiveShell(), "Title", "Message2", SWT.None);
+                    }
+                });
+
 //                ViolationsDialog violationsDialog = new ViolationsDialog(Display.getCurrent().getActiveShell());
 //                violationsDialog.open();
 
