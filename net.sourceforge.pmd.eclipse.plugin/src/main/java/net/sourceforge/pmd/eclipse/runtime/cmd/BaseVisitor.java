@@ -365,18 +365,24 @@ public class BaseVisitor {
                             }
                         }
 
-                        Status status = new Status(IStatus.INFO, PMDPlugin.PLUGIN_ID, "Your code has " + count + " issues.", new Throwable(){
+                        class MessageException extends Throwable {
+                            private Report report;
+                            MessageException(Report collectingReport) {
+                                report = collectingReport;
+                            }
                             @Override
                             public String getMessage() {
                                 StringBuilder sb = new StringBuilder();
-                                for (RuleViolation violation : collectingReport) {
+                                for (RuleViolation violation : report) {
                                     if (!violation.isSuppressed()) {
                                         sb.append(violation.getFilename()).append(":").append(violation.getBeginLine()).append(" ").append(violation.getRule().getName());
                                     }
                                 }
                                 return sb.toString();
                             }
-                        });
+                        }
+
+                        Status status = new Status(IStatus.INFO, PMDPlugin.PLUGIN_ID, "Your code has " + count + " issues.", new MessageException(collectingReport));
                         ErrorDialog errorDialog = new ErrorDialog(display.getActiveShell(), "PMD Warnings", "Your code has " + count + " issues. See details for more information.", status, IStatus.ERROR);
                         errorDialog.open();
                     }
