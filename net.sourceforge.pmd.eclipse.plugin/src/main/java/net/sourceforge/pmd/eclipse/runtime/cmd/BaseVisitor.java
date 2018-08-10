@@ -358,12 +358,10 @@ public class BaseVisitor {
                 final Display display = Display.getDefault();
                 display.asyncExec(new Runnable() {
                     public void run() {
-                        MessageDialog.open(MessageDialog.QUESTION_WITH_CANCEL, display.getActiveShell(), "Title", "Message2", SWT.None);
+                        ViolationsDialog violationsDialog = new ViolationsDialog(display.getActiveShell());
+                        violationsDialog.open();
                     }
                 });
-
-//                ViolationsDialog violationsDialog = new ViolationsDialog(Display.getCurrent().getActiveShell());
-//                violationsDialog.open();
 
                 if (collectingReport.hasConfigErrors()) {
                     StringBuilder message = new StringBuilder("There were configuration errors!\n");
