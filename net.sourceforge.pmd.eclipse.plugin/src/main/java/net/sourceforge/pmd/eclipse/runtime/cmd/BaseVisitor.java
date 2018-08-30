@@ -368,7 +368,7 @@ public class BaseVisitor {
 
                         for (RuleViolation violation : collectingReport) {
                             if (!violation.isSuppressed()) {
-                                sb.append(violation.getFilename() + ":" + violation.getBeginLine() + " " + violation.getRule().getName());
+                                sb.append(violation.getFilename()).append(":").append(violation.getBeginLine()).append(" ").append(violation.getRule().getName()).append('\n');
                             }
                         }
                         if (count > 0)
