@@ -50,7 +50,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.*;
-import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.ResourceWorkingSetFilter;
@@ -362,17 +362,18 @@ public class BaseVisitor {
                                 count++;
                             }
                         }
-                        MultiStatus status = new MultiStatus(PMDPlugin.PLUGIN_ID, 1, "You have " + count + " warnings.", null);
+                        //MultiStatus status = new MultiStatus(PMDPlugin.PLUGIN_ID, 1, "You have " + count + " warnings.", null);
+
+                        StringBuilder sb = new StringBuilder();
 
                         for (RuleViolation violation : collectingReport) {
                             if (!violation.isSuppressed()) {
-                                StringBuilder sb = new StringBuilder();
-                                sb.append(violation.getFilename()).append(":").append(violation.getBeginLine()).append(" ").append(violation.getRule().getName());
-                                status.add(new Status(IStatus.WARNING, PMDPlugin.PLUGIN_ID, 1, sb.toString(), null));
+                                sb.append(violation.getFilename() + ":" + violation.getBeginLine() + " " + violation.getRule().getName());
                             }
                         }
                         if (count > 0)
-                            ErrorDialog.openError(display.getActiveShell(), "PMD Warnings", null, status);
+                            //ErrorDialog.openError(display.getActiveShell(), "PMD Warnings", null, status);
+                            MessageDialog.openError(display.getActiveShell(), "PMD Warnings", sb.toString());
                     }
                 });
 
